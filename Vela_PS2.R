@@ -15,7 +15,7 @@ bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
     #Create stars
     star=ifelse(m<0.851,"None",ifelse(m<0.967,"*", ifelse(m<1.212, "**",  "***")))
     #put both in a list
-    m=list(m, star)
+    m=list(m=m, star=star)
     #put in the output
     output$m=m
   }
@@ -25,12 +25,13 @@ bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
     #Create stars    
     star=ifelse(d<0.851,"None",ifelse(d<0.967,"*", ifelse(d<1.212, "**",  "***")))
     #put both in a list    
-    d=list(d, star)
+    d=list(d=d, star=star)
     #put in the output
     output$d=d
   }
   return(output)
 }
 
+#Example
 x <- c(0,0,0.1,0.1,0,0,0,0,0.8)
 bendfordlaw(x, returnm=F)
