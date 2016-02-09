@@ -48,6 +48,7 @@ b <- bendfordlaw(x, returnm=F)
 summary(b$d)
 
 
-foo <- structure(list(m=c(y$m$m, y$m$star), d=c(y$d$d, y$d$star),  
-
+output <- structure(list(statistics=c(b$m$m, b$d$d), stars=structure(c(b$m$star, b$d$star), class="character")), 
+                      .Names = c("Statistic", "Star"), class = "data.frame", row.names = 1:2)
+        
 
