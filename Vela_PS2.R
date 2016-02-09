@@ -35,3 +35,19 @@ bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
 #Example
 x <- c(0,0,0.1,0.1,0,0,0,0,0.8)
 bendfordlaw(x, returnm=F)
+
+
+print.benfords <- function(y){
+  if (!is.null(y[["m"]])){
+     
+  }
+  
+}
+
+b <- bendfordlaw(x, returnm=F)
+summary(b$d)
+
+
+foo <- structure(list(m=c(y$m$m, y$m$star), d=c(y$d$d, y$d$star),  
+
+
