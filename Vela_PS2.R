@@ -1,7 +1,6 @@
 
 #PS2
 
-
 #start creating the function
 bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
   #Create initial list with the input only
@@ -13,7 +12,7 @@ bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
     #create m statistic
     m= max(x-log10(1+(1/(1:n))))
     #Create stars
-    star=ifelse(m<0.851,"None",ifelse(m<0.967,"*", ifelse(m<1.212, "**",  "***")))
+    star=ifelse(m<0.851," ",ifelse(m<0.967,"*", ifelse(m<1.212, "**",  "***")))
     #put both in a list
     m=list(m=m, star=star)
     #put in the output
@@ -23,7 +22,7 @@ bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
   if (returnd==TRUE) {
     d=sqrt(sum((x-log10(1+(1/(1:n))))^2))
     #Create stars    
-    star=ifelse(d<0.851,"None",ifelse(d<0.967,"*", ifelse(d<1.212, "**",  "***")))
+    star=ifelse(d<0.851," ",ifelse(d<0.967,"*", ifelse(d<1.212, "**",  "***")))
     #put both in a list    
     d=list(d=d, star=star)
     #put in the output
@@ -34,7 +33,7 @@ bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
 
 #Example
 x <- c(0,0,0.1,0.1,0,0,0,0,0.8)
-y <- bendfordlaw(x, returnm=T)
+y <- bendfordlaw(x, returnm=F)
 
 
 print.benfords <- function(y){
@@ -42,25 +41,39 @@ print.benfords <- function(y){
   stars <- list()
   rownames <- list()
   if (!is.null(y[["m"]])){
-      statistics$m <- y$m$star
-      stars$m <- y$m$m
+      stars$m <- y$m$star
+      statistics$m <- y$m$m
       rownames$m <- "M statistic"
   }
   if (!is.null(y[["d"]])){
-    statistics$d <- y$d$star
-    stars$d <- y$d$d
+    stars$d <- y$d$star
+    statistics$d <- y$d$d
     rownames$d <- "D statistic"    
   }  
   output <- structure(list(statistics=statistics, stars=structure(stars, class="character")), 
                       .Names = c("Statistic", "Stars"), class = "data.frame", row.names =as.character(rownames))
   
-  cat("----")
-  
+  print(output)
+  cat("--- \n Signif. codes:  0  '***' 0.01 '**' 0.05 '*' 0.1 ' ' 1")
 }
 
-final<- print.benfords(y)
+print.benfords(y)
 
 
-cat("----")
+tocsvbenfords <- function(y){
+  #create a file
+  zz <- file("benford.csv", open = "wt")
+  #start capturing all from the console
+  sink(zz)
+  print.benfords(y)
+  #Return file
+  sink()
+  close(zz)
+}
+
+tocsvbenfords(y)
+
+
+
 
 
