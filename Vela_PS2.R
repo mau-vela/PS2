@@ -34,21 +34,30 @@ bendfordlaw <- function(x, returnm=TRUE, returnd=TRUE){
 
 #Example
 x <- c(0,0,0.1,0.1,0,0,0,0,0.8)
-bendfordlaw(x, returnm=F)
+bendfordlaw(x, returnm=T)
 
 
 print.benfords <- function(y){
+  statistics <- list()
+  stars <- list()
+  rownames <- list()
   if (!is.null(y[["m"]])){
-     
+      statistics$m <- y$m$star
+      stars$m <- y$m$m
+      rownames$m <- "M statistic"
   }
-  
+  if (!is.null(y[["d"]])){
+    statistics$d <- y$d$star
+    stars$d <- y$d$d
+    rownames$d <- "D statistic"    
+  }  
 }
 
 b <- bendfordlaw(x, returnm=F)
 summary(b$d)
 
-
-output <- structure(list(statistics=c(b$m$m, b$d$d), stars=structure(c(b$m$star, b$d$star), class="character")), 
-                      .Names = c("Statistic", "Star"), class = "data.frame", row.names = 1:2)
+cat("----")
+output <- structure(list(statistics=statistics, stars=structure(stars, class="character")), 
+                      .Names = c("Statistic", "Stars"), class = "data.frame", row.names =as.character(rownames))
         
 
